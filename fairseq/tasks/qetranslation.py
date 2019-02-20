@@ -146,6 +146,8 @@ class QETranslationTask(FairseqTask):
             return None
 
         def indexed_dataset_hter(path, dictionary):
+            print("zzzzzzzzzzzz")
+            print(path)
             if IndexedDataset.exists(path):
                 print("$$$$$$$$$$$$$$$$$$$$$$")
                 if self.args.lazy_load:
