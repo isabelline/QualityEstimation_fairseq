@@ -17,6 +17,7 @@ from fairseq.data import (
     IndexedDataset,
     IndexedRawTextDataset,
     LanguagePairDataset,
+    LanguagePairHTERDataset
 )
 
 from . import FairseqTask, register_task
@@ -142,10 +143,10 @@ class QETranslationTask(FairseqTask):
         print('| [{}] dictionary: {} types'.format(args.target_lang, len(tgt_dict)))
 
         return cls(args, src_dict, tgt_dict)
-
+    
+    @classmethod
     def load_dataset(self, split, combine=False, **kwargs):
         """Load a given dataset split.
-
         Args:
             split (str): name of the split (e.g., train, valid, test)
         """
@@ -170,6 +171,7 @@ class QETranslationTask(FairseqTask):
 
         src_datasets = []
         tgt_datasets = []
+        hter_datasets = []
 
         data_paths = self.args.data
 
@@ -178,7 +180,7 @@ class QETranslationTask(FairseqTask):
                 split_k = split + (str(k) if k > 0 else '')
 
                 # infer langcode
-                src, tgt = self.args.source_lang, self.args.target_lang
+                src, tgt, hter = self.args.source_lang, self.args.target_lang, self.hter_lang
                 if split_exists(split_k, src, tgt, src, data_path):
                     prefix = os.path.join(data_path, '{}.{}-{}.'.format(split_k, src, tgt))
                 elif split_exists(split_k, tgt, src, src, data_path):
@@ -191,6 +193,7 @@ class QETranslationTask(FairseqTask):
 
                 src_datasets.append(indexed_dataset(prefix + src, self.src_dict))
                 tgt_datasets.append(indexed_dataset(prefix + tgt, self.tgt_dict))
+                hter_datasets.append(indexed_dataset(prefix + hter, self.tgt_dict))
 
                 print('| {} {} {} examples'.format(data_path, split_k, len(src_datasets[-1])))
 
@@ -200,20 +203,21 @@ class QETranslationTask(FairseqTask):
         assert len(src_datasets) == len(tgt_datasets)
 
         if len(src_datasets) == 1:
-            src_dataset, tgt_dataset = src_datasets[0], tgt_datasets[0]
+            src_dataset, tgt_dataset,hter_dataset = src_datasets[0], tgt_datasets[0],hter_datasets[0]
         else:
             sample_ratios = [1] * len(src_datasets)
             sample_ratios[0] = self.args.upsample_primary
             src_dataset = ConcatDataset(src_datasets, sample_ratios)
             tgt_dataset = ConcatDataset(tgt_datasets, sample_ratios)
 
-        self.datasets[split] = LanguagePairDataset(
+        self.datasets[split] = LanguagePairHTERDataset(
             src_dataset, src_dataset.sizes, self.src_dict,
             tgt_dataset, tgt_dataset.sizes, self.tgt_dict,
             left_pad_source=self.args.left_pad_source,
             left_pad_target=self.args.left_pad_target,
             max_source_positions=self.args.max_source_positions,
             max_target_positions=self.args.max_target_positions,
+            hter=hter_dataset, hter_sizes=hter_dataset.sizes
         )
 
     def max_positions(self):
