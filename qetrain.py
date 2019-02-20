@@ -71,7 +71,7 @@ def main(args, init_distributed=False):
     dummy_batch = task.dataset('train').get_dummy_batch(args.max_tokens, max_positions)
     oom_batch = task.dataset('train').get_dummy_batch(1, max_positions)
     print("~~~~~~~~~~~~~~~~~~~")
-    print(dummy_batch)
+    print(oom_batch)
 
     # Build trainer
     trainer = Trainer(args, task, model, criterion, dummy_batch, oom_batch)
