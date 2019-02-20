@@ -228,7 +228,8 @@ class QETranslationTask(FairseqTask):
         with open(prefix+"."+self.args.hter_lang, encoding='utf-8') as file:
             for line in file:
                 hter = line.strip()
-                hters.append(torch.FloatTensor([float(hter)])
+                hters.append(torch.FloatTensor([float(hter)]))
+                
         self.datasets[split] = LanguagePairHTERDataset(
             src_sentences, src_lengths, self.src_dict,
             tgt_sentences, tgt_lengths, self.tgt_dict,
