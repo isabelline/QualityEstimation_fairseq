@@ -73,7 +73,7 @@ def main(args, init_distributed=False):
     print("~~~~~~~~~~~~~~~~~~~")
     print(oom_batch)
     print("~~~~~~~~~~~~~~~~~~~")
-    print(dummy_batch)
+    print(dummy_batch['id'].shape)
 
     # Build trainer
     trainer = Trainer(args, task, model, criterion, dummy_batch, oom_batch)
