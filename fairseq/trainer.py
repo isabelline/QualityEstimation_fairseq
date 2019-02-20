@@ -342,6 +342,8 @@ class Trainer(object):
 
     def dummy_train_step(self, dummy_batch):
         """Dummy training step for warming caching allocator."""
+        print("====================")
+        print(len(dummy_batch))
         self.train_step(dummy_batch, dummy_batch=True)
         self.zero_grad()
 
