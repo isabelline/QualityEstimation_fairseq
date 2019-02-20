@@ -16,6 +16,14 @@ import torch
 from torch.serialization import default_restore_location
 
 
+def load_partial_weights(model, path):
+    pretrained_dict = torch.load(path)
+    model_dict = model.state_dict()
+    pretrained_dict = {k:v for k,v in pretrained_dict.items() if k in model_dict}
+    model_dict.update(pretrained_dict)
+    model.load_state_sict(model_dict)
+    return model
+
 def torch_persistent_save(*args, **kwargs):
     for i in range(3):
         try:
