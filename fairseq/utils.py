@@ -18,6 +18,7 @@ from torch.serialization import default_restore_location
 
 def load_partial_weights(model, path):
     pretrained_dict = torch.load(path)
+    pretrained_dict = pretrained_dict['model']
     print("!!!!!!!!!")
     print(pretrained_dict.keys())
     model_dict = model.state_dict()
