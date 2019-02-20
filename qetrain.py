@@ -38,9 +38,6 @@ def main(args, init_distributed=False):
 
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)
-    print("###########")
-    print(task)
-    print(task.args)
 
     # Load dataset splits
     load_dataset_splits(task, ['train', 'valid'])
@@ -367,9 +364,6 @@ def load_checkpoint(args, trainer, epoch_itr):
 def load_dataset_splits(task, splits):
     for split in splits:
         if split == 'train':
-            print("@@@@@@@@@")
-            print(task.args)
-            print(split)
             task.load_dataset(split, combine=True)
         else:
             for k in itertools.count():
