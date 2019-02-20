@@ -167,7 +167,7 @@ def get_parser(desc, default_task='translation'):
                         help='src raw text')
     parser.add_argument('--tgt-raw-text', default=False,
                         help='tgt raw text')
-    parser.add_argument('--hter-lang', default=None, help='hter')
+#    parser.add_argument('--hter-lang', default=None, help='hter')
 
 
     # Task definitions can be found under fairseq/tasks/
