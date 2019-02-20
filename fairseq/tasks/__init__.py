@@ -49,6 +49,9 @@ def register_task(name):
         if cls.__name__ in TASK_CLASS_NAMES:
             raise ValueError('Cannot register task with duplicate class name ({})'.format(cls.__name__))
         TASK_REGISTRY[name] = cls
+        print("!!!!!!!!")
+        for k in TASK_REGISTRY.keys():
+            print(k)
         TASK_CLASS_NAMES.add(cls.__name__)
         return cls
 
