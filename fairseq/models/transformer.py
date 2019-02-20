@@ -793,7 +793,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         """
         # embed positions
         print("$$$$$$$$$$$$$$$$$$$$")
-        print(encoder_out.shape)
+        print(encoder_out['encoder_out'].shape)
         positions = self.embed_positions(
             prev_output_tokens,
             incremental_state=incremental_state,
