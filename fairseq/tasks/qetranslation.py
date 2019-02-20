@@ -89,28 +89,6 @@ class QETranslationTask(FairseqTask):
         model.load_state_dict(state_dict, strict=True)
         return model
 
-
-    @staticmethod
-    def load_pretrained_model_partial(path, src_dict_path, tgt_dict_path, arg_overrides=None):
-        model = utils.load_checkpoint_to_cpu(path)
-        args = model['args']
-        pretrained_dict = model['model']
-        args = utils.override_model_args(args, arg_overrides)
-        src_dict = Dictionary.load(src_dict_path)
-        tgt_dict = Dictionary.load(tgt_dict_path)
-        assert src_dict.pad() == tgt_dict.pad()
-        assert src_dict.eos() == tgt_dict.eos()
-        assert src_dict.unk() == tgt_dict.unk()
-
-        task = QETranslationTask(args, src_dict, tgt_dict)
-        model = task.build_model(args)
-        model_dict = model.state_dict()
-        state_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-        model_dict.update(state_dict)
-#        model.upgrade_state_dict(state_dict)
-        model.load_state_dict(model_dict, strict=True)
-        return model        
-
     def __init__(self, args, src_dict, tgt_dict):
         super().__init__(args)
         self.src_dict = src_dict
