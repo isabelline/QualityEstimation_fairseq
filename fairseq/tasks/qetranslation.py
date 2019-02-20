@@ -146,15 +146,11 @@ class QETranslationTask(FairseqTask):
             return None
 
         def indexed_dataset_hter(path, dictionary):
-            print("zzzzzzzzzzzz")
-            print(path)
             if IndexedDataset.exists(path):
-                print("$$$$$$$$$$$$$$$$$$$$$$")
                 if self.args.lazy_load:
                     return IndexedDataset(path, fix_lua_indexing=True)
                 else:
                     return IndexedCachedDataset(path, fix_lua_indexing=True)
-            print("DDDDDDDDDDDDD")
             return None
         
 
@@ -209,7 +205,37 @@ class QETranslationTask(FairseqTask):
             max_target_positions=self.args.max_target_positions,
             hter=hter_dataset, hter_sizes=hter_dataset.sizes
         )
-
+        
+    def load_dataset2(self, split, **kwargs):
+        prefix = os.path.join(self.args.data, self.args.data+split+"."+self.args.source_lang+"-"+target_lang)
+        src_sentences, src_lengths = [],[]
+        with open(prefix+"."+self.args.source_lang, encoding='utf-8') as file:
+            for line in file:
+                sentence = line.strip()
+                tokens = Tokenizer.tokenize(sentence, self.src_dict, add_id_not_exist=False)
+                src_sentences.append(tokens)
+                src_lengths.append(tokens.numel())
+        tgt_sentences, tgt_lengths = [],[]
+        with open(prefix+"."+self.args.target_lang, encoding='utf-8') as file:
+            for line in file:
+                sentence = line.strip()
+                tokens = Tokenizer.tokenize(sentence, self.tgt_dict, add_id_not_exist=False(
+                tgt_sentences.append(tokens)
+                tgt_lengths.append(tokens.numel())
+        hters = []
+        with open(prefix+"."+self.args.hter_lang, encoding='utf-8') as file:
+            for line in file:
+                hter = line.strip()
+                hters.append(torch.FloatTensor([float(hter)])
+        self.datasets[split] = LanguagePairHTERDataset(
+            src_sentences, src_lengths, self.src_dict,
+            tgt_sentences, tgt_lengths, self.tgt_dict,
+            left_pad_source=self.args.left_pad_source,
+            left_pad_target=self.args.left_pad_target,
+            max_source_positions=self.args.max_source_positions,
+            max_target_positions=self.args.max_target_positions,
+            hter=hters, hter_sizes=torch.ones(len(hters))
+        )
     def build_dataset_for_inference(self, src_tokens, src_lengths):
         return LanguagePairDataset(src_tokens, src_lengths, self.source_dictionary)
     
