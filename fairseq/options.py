@@ -22,6 +22,11 @@ def get_preprocessing_parser(default_task='translation'):
     add_preprocess_args(parser)
     return parser
 
+def get_qepreprocessing_parser(default_task='qe'):
+    parser = get_parser('Preprocessing', default_task)
+    add_preprocess_args(parser)
+    return parser
+
 
 def get_training_parser(default_task='translation'):
     parser = get_parser('Trainer', default_task)
