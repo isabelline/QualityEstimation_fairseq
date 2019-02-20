@@ -7,6 +7,7 @@
 
 import math
 import torch.nn.functional as F
+import torch
 
 from fairseq import utils
 
@@ -29,10 +30,13 @@ class MAECriterion(FairseqCriterion):
         """
         net_output = model(**sample['net_input'])
         target = model.get_hters(sample).view(-1)
+        
         net_output = net_output[0]
+        net_output = torch.squeeze(net_output)
         print("!!!!!!")
         print(net_output.shape)
         print(target.shape)
+        print(target)
 
         loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction='mean')
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
