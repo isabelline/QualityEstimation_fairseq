@@ -13,6 +13,7 @@ import collections
 import itertools
 import os
 import math
+import time
 import random
 
 import torch
@@ -38,7 +39,9 @@ def main(args, init_distributed=False):
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)
     
+    print("------------------------")
     print(task.args)
+    time.sleep(5)
     exit(1)
 
     # Load dataset splits
