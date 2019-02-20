@@ -8,6 +8,7 @@
 import itertools
 import os
 from fairseq.tokenizer import Tokenizer
+import torch
 
 from fairseq import options, utils
 from fairseq.data import (
