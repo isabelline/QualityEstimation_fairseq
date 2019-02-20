@@ -29,6 +29,9 @@ class MAECriterion(FairseqCriterion):
         """
         net_output = model(**sample['net_input'])
         target = model.get_targets(sample, net_output).view(-1)
+        print("!!!!!!")
+        print(net_output)
+        print(target)
 
         loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction='mean')
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
