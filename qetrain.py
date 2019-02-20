@@ -367,6 +367,8 @@ def load_checkpoint(args, trainer, epoch_itr):
 def load_dataset_splits(task, splits):
     for split in splits:
         if split == 'train':
+            print("@@@@@@@@@")
+            print(task.args)
             task.load_dataset(split, combine=True)
         else:
             for k in itertools.count():
