@@ -848,7 +848,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         h0 = torch.zeros()
         c0 = torch.zeros()
         out, _ = self.blstm(x,(h0,c0))
-        x = F.linear(x, 24)
+        x = F.linear(out, 24)
         x = F.linear(x, 1)
 
         return x, {'attn': attn, 'inner_states': inner_states}
