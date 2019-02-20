@@ -118,6 +118,7 @@ class QETranslationTask(FairseqTask):
         assert src_dict.unk() == tgt_dict.unk()
         print('| [{}] dictionary: {} types'.format(args.source_lang, len(src_dict)))
         print('| [{}] dictionary: {} types'.format(args.target_lang, len(tgt_dict)))
+        print("done setup")
 
         return cls(args, src_dict, tgt_dict)
     
