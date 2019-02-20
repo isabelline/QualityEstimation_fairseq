@@ -281,7 +281,7 @@ def merge_files(files, outpath):
 
 
 def cli_main():
-    parser = options.get_preprocessing_parser()
+    parser = options.get_qepreprocessing_parser()
     args = parser.parse_args()
     main(args)
 
