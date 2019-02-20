@@ -158,6 +158,11 @@ class QETranslationTask(FairseqTask):
         src_datasets = []
         tgt_datasets = []
         hter_datasets = []
+        
+        print("!!!!!!!!!!!!!!!!!")
+        print(self.src_dict)
+        print("!!!!!!!!!!!")
+        print(self.args)
 
         data_paths = self.args.data
 
