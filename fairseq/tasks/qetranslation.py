@@ -216,12 +216,14 @@ class QETranslationTask(FairseqTask):
                 src_sentences.append(tokens)
                 src_lengths.append(tokens.numel())
         tgt_sentences, tgt_lengths = [],[]
+        
         with open(prefix+"."+self.args.target_lang, encoding='utf-8') as file:
             for line in file:
                 sentence = line.strip()
-                tokens = Tokenizer.tokenize(sentence, self.tgt_dict, add_id_not_exist=False(
+                tokens = Tokenizer.tokenize(sentence, self.tgt_dict, add_id_not_exist=False)
                 tgt_sentences.append(tokens)
                 tgt_lengths.append(tokens.numel())
+   
         hters = []
         with open(prefix+"."+self.args.hter_lang, encoding='utf-8') as file:
             for line in file:
