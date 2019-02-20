@@ -221,7 +221,17 @@ class TransformerModel(FairseqModel):
         parser.add_argument('--adaptive-softmax-dropout', type=float, metavar='D',
                             help='sets adaptive softmax dropout for the tail projections')
         # fmt: on
+    @classmethod
+    def get_targets(self, sample, net_output):
+        """Get targets from either the sample or the net's output."""
+        return sample['target']
+    
+    @classmethod
+    def get_hter(self, sample, net_output):
+        """Get targets from either the sample or the net's output."""
+        return sample['hter']
 
+    
     @classmethod
     def build_model(cls, args, task):
         """Build a new model instance."""
