@@ -166,7 +166,7 @@ class QETranslationTask(FairseqTask):
                 split_k = split + (str(k) if k > 0 else '')
 
                 # infer langcode
-                src, tgt, hter = self.args.source_lang, self.args.target_lang, self.hter_lang
+                src, tgt, hter = self.args.source_lang, self.args.target_lang, self.args.hter_lang
                 if split_exists(split_k, src, tgt, src, data_path):
                     prefix = os.path.join(data_path, '{}.{}-{}.'.format(split_k, src, tgt))
                 elif split_exists(split_k, tgt, src, src, data_path):
