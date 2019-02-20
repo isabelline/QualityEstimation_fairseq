@@ -122,8 +122,7 @@ class QETranslationTask(FairseqTask):
         print(cls)
         return cls(args, src_dict, tgt_dict)
     
-    @classmethod
-    def load_dataset(self, split, combine=False):
+    def load_dataset(self, split, combine=False, **kwargs):
         """Load a given dataset split.
         Args:
             split (str): name of the split (e.g., train, valid, test)
