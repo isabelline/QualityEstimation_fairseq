@@ -838,8 +838,8 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         # T x B x C -> B x T x C
         x = x.transpose(0, 1)
         
-        y = torch.zeros((prev_output_tokens.shape[0], 1024-prev_output_tokens.shape[1], x.shape[2]))
-        z = torch.cat((x,y),dim =1)
+        y = torch.zeros((prev_output_tokens.shape[0], 1024-prev_output_tokens.shape[1], x.shape[2])).cuda(1)
+        z = torch.cat((x,y),dim =1).cuda(1)
         z = x
         print("#######")
         print(x.shape)
