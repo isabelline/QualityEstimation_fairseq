@@ -797,8 +797,6 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         """
         # embed positions
         prev_output_tokens = prev_output_tokens.type(torch.LongTensor).cuda(1)
-        print("$$$$$$$$$$$$$$$$$$$$")
-        print(encoder_out['encoder_out'].shape)
         positions = self.embed_positions(
             prev_output_tokens,
             incremental_state=incremental_state,
@@ -845,8 +843,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
   #      y = torch.zeros((prev_output_tokens.shape[0], 1024-prev_output_tokens.shape[1], x.shape[2])).cuda(1)
   #      z = torch.cat((x,y),dim =1).cuda(1)
   #      z = x
-        print("#######")
-        print(x.shape)
+
 
         if self.project_out_dim is not None:
             x = self.project_out_dim(x)
@@ -862,16 +859,11 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
     #    c0 = torch.zeros(self.hidden_size)
 
         out, _ = self.blstm(x)
-        print("^^^^^^^^^^^^^^^")
-        print(out.shape)
+
         
         y = torch.zeros((out.shape[0], 1024-out.shape[1], out.shape[2])).cuda(1)
         z = torch.cat((out, y), dim =1).cuda(1)
         z = z.view(x.size(0), -1)
-        print("**************")
-        print(z.shape)
-        
-
   #      out, _ = self.blstm(x,(h0,c0))
         
   #      x = F.linear(out, 20)
