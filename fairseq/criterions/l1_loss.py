@@ -28,10 +28,11 @@ class MAECriterion(FairseqCriterion):
         3) logging outputs to display while training
         """
         net_output = model(**sample['net_input'])
-        target = model.get_targets(sample, net_output).view(-1)
+        target = model.get_hters(sample).view(-1)
+        net_output = net_output[0]
         print("!!!!!!")
-        print(net_output)
-        print(target)
+        print(net_output.shape)
+        print(target.shape)
 
         loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction='mean')
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
