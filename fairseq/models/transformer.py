@@ -796,6 +796,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
                   tgt_len, src_len)`
         """
         # embed positions
+        prev_output_tokens = prev_output_tokens.type(torch.LongTensor).cuda(1)
         print("$$$$$$$$$$$$$$$$$$$$")
         print(encoder_out['encoder_out'].shape)
         positions = self.embed_positions(
