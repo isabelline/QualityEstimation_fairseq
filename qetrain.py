@@ -72,6 +72,8 @@ def main(args, init_distributed=False):
     oom_batch = task.dataset('train').get_dummy_batch(1, max_positions)
     print("~~~~~~~~~~~~~~~~~~~")
     print(oom_batch)
+    print("~~~~~~~~~~~~~~~~~~~")
+    print(dummy_batch)
 
     # Build trainer
     trainer = Trainer(args, task, model, criterion, dummy_batch, oom_batch)
