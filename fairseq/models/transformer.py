@@ -225,7 +225,12 @@ class TransformerModel(FairseqModel):
     def get_targets(self, sample, net_output):
         """Get targets from either the sample or the net's output."""
         return sample['target']
-    
+
+    @classmethod
+    def get_hters(self, sample):
+        """Get targets from either the sample or the net's output."""
+        return sample['hter']
+        
     @classmethod
     def get_hter(self, sample, net_output):
         """Get targets from either the sample or the net's output."""
