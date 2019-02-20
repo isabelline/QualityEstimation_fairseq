@@ -147,10 +147,12 @@ class QETranslationTask(FairseqTask):
 
         def indexed_dataset_hter(path, dictionary):
             if IndexedDataset.exists(path):
+                print("$$$$$$$$$$$$$$$$$$$$$$")
                 if self.args.lazy_load:
                     return IndexedDataset(path, fix_lua_indexing=True)
                 else:
                     return IndexedCachedDataset(path, fix_lua_indexing=True)
+            print("DDDDDDDDDDDDD")
             return None
         
 
