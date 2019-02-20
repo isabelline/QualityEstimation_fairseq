@@ -52,7 +52,7 @@ def collate(
             prev_output_tokens = prev_output_tokens.index_select(0, sort_order)
     else:
         ntokens = sum(len(s['source']) for s in samples)
-    hter_token = samples['hter']
+    hter_token = torch.FloatTensor([s['hter'] for s in samples])
 
     batch = {
         'id': id,
