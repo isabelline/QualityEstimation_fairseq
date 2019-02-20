@@ -56,7 +56,7 @@ setup(
             'fairseq-preprocess = fairseq_cli.preprocess:cli_main',
             'fairseq-train = fairseq_cli.train:cli_main',
             'fairseq-score = fairseq_cli.score:main',
-            'fairseq-qepreprocess = fairseq_cli.qepreprocess:main'
+            'fairseq-qepreprocess = fairseq_cli.qepreprocess:cli_main'
         ],
     },
 )
