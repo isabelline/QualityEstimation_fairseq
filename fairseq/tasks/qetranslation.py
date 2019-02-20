@@ -23,7 +23,7 @@ from fairseq.data import (
 from . import FairseqTask, register_task
 
 
-@register_task('qe')
+@register_task('qetranslation')
 class QETranslationTask(FairseqTask):
     """
     Translate from one (source) language to another (target) language.
@@ -118,8 +118,7 @@ class QETranslationTask(FairseqTask):
         assert src_dict.unk() == tgt_dict.unk()
         print('| [{}] dictionary: {} types'.format(args.source_lang, len(src_dict)))
         print('| [{}] dictionary: {} types'.format(args.target_lang, len(tgt_dict)))
-        print("done setup")
-
+        
         return cls(args, src_dict, tgt_dict)
     
     @classmethod
@@ -160,10 +159,6 @@ class QETranslationTask(FairseqTask):
         tgt_datasets = []
         hter_datasets = []
         
-        print("!!!!!!!!!!!!!!!!!")
-        print(self.src_dict)
-        print("!!!!!!!!!!!")
-        print(self.args)
 
         data_paths = self.args.data
 
