@@ -38,6 +38,9 @@ def main(args, init_distributed=False):
 
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)
+    print("###########")
+    print(task)
+    print(task.args)
 
     # Load dataset splits
     load_dataset_splits(task, ['train', 'valid'])
