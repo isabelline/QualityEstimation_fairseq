@@ -364,12 +364,12 @@ def load_checkpoint(args, trainer, epoch_itr):
 def load_dataset_splits(task, splits):
     for split in splits:
         if split == 'train':
-            task.load_dataset(split, combine=True)
+            task.load_dataset2(split, combine=True)
         else:
             for k in itertools.count():
                 split_k = split + (str(k) if k > 0 else '')
                 try:
-                    task.load_dataset(split_k, combine=False)
+                    task.load_dataset2(split_k, combine=False)
                 except FileNotFoundError as e:
                     if k > 0:
                         break
