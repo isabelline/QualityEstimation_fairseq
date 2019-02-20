@@ -163,6 +163,11 @@ def get_parser(desc, default_task='translation'):
                         help='path to a python module containing custom extensions (tasks and/or architectures)')
     parser.add_argument('--weight-dir', default=None,
                         help='path to a pytorch weight')
+    parser.add_argument('--src-raw-text', default=False,
+                        help='src raw text')
+    parser.add_argument('--tgt-raw-text', default=False,
+                        help='tgt raw text')
+
 
     # Task definitions can be found under fairseq/tasks/
     parser.add_argument('--task', metavar='TASK', default=default_task,
