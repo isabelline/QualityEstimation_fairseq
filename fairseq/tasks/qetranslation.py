@@ -169,6 +169,15 @@ class QETranslationTask(FairseqTask):
                     return IndexedCachedDataset(path, fix_lua_indexing=True)
             return None
 
+        def indexed_dataset_hter(path, dictionary):
+            if IndexedDataset.exists(path):
+                if self.args.lazy_load:
+                    return IndexedDataset(path, fix_lua_indexing=True)
+                else:
+                    return IndexedCachedDataset(path, fix_lua_indexing=True)
+            return None
+        
+
         src_datasets = []
         tgt_datasets = []
         hter_datasets = []
@@ -193,7 +202,7 @@ class QETranslationTask(FairseqTask):
 
                 src_datasets.append(indexed_dataset(prefix + src, self.src_dict))
                 tgt_datasets.append(indexed_dataset(prefix + tgt, self.tgt_dict))
-                hter_datasets.append(indexed_dataset(prefix + hter, self.tgt_dict))
+                hter_datasets.append(indexed_dataset_hter(prefix + hter, self.tgt_dict))
 
                 print('| {} {} {} examples'.format(data_path, split_k, len(src_datasets[-1])))
 
