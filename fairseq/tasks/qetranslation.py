@@ -118,10 +118,7 @@ class QETranslationTask(FairseqTask):
         assert src_dict.pad() == tgt_dict.pad()
         assert src_dict.eos() == tgt_dict.eos()
         assert src_dict.unk() == tgt_dict.unk()
-        print('| [{}] dictionary: {} types'.format(args.source_lang, len(src_dict)))
-        print('| [{}] dictionary: {} types'.format(args.target_lang, len(tgt_dict)))
-        print("!!!!!!!")
-        print(cls)
+
         return cls(args, src_dict, tgt_dict)
     
     def load_dataset(self, split, combine=False, **kwargs):
@@ -129,8 +126,7 @@ class QETranslationTask(FairseqTask):
         Args:
             split (str): name of the split (e.g., train, valid, test)
         """
-        print("%%%%%%%%%%%%%%%%%%%%")
-        print(self.args)
+
         def split_exists(split, src, tgt, lang, data_path):
             filename = os.path.join(data_path, '{}.{}-{}.{}'.format(split, src, tgt, lang))
             if self.args.raw_text and IndexedRawTextDataset.exists(filename):
