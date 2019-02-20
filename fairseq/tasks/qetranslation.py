@@ -54,6 +54,8 @@ class QETranslationTask(FairseqTask):
                             help='source language')
         parser.add_argument('-t', '--target-lang', default=None, metavar='TARGET',
                             help='target language')
+        parser.add_argument('--hter-lang', default=None, 
+                            help='hter language')        
         parser.add_argument('--lazy-load', action='store_true',
                             help='load the dataset lazily')
         parser.add_argument('--raw-text', action='store_true',
