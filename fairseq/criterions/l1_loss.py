@@ -33,10 +33,6 @@ class MAECriterion(FairseqCriterion):
         
         net_output = net_output[0]
         net_output = torch.squeeze(net_output)
-        print("!!!!!!")
-        print(net_output.shape)
-        print(target.shape)
-        print(target)
 
         loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction='mean')
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
@@ -45,6 +41,8 @@ class MAECriterion(FairseqCriterion):
             'ntokens': sample['ntokens'],
             'sample_size': sample_size,
         }
+        print("++++++++++++++++++++++++")
+        print(loss)
         return loss, sample_size, logging_output
 
     
