@@ -49,9 +49,6 @@ def register_task(name):
         if cls.__name__ in TASK_CLASS_NAMES:
             raise ValueError('Cannot register task with duplicate class name ({})'.format(cls.__name__))
         TASK_REGISTRY[name] = cls
-        print("!!!!!!!!")
-        for k in TASK_REGISTRY.keys():
-            print(k)
         TASK_CLASS_NAMES.add(cls.__name__)
         return cls
 
@@ -74,6 +71,9 @@ for file in os.listdir(os.path.dirname(__file__)):
             # fmt: on
             group_args = parser.add_argument_group('Additional command-line arguments')
             TASK_REGISTRY[task_name].add_args(group_args)
+            print("!!!!!!!!")
+            for k in TASK_REGISTRY.keys():
+                print(k)
             globals()[task_name + '_parser'] = parser
 
 
