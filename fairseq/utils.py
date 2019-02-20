@@ -21,7 +21,7 @@ def load_partial_weights(model, path):
     model_dict = model.state_dict()
     pretrained_dict = {k:v for k,v in pretrained_dict.items() if k in model_dict}
     print("~~~~~~~~~~~~~~~~")
-    print(pretained_dict)
+    print(pretrained_dict)
     model_dict.update(pretrained_dict)
     model.load_state_dict(model_dict)
     return model
