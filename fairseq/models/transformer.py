@@ -644,7 +644,7 @@ class TransformerDecoder(FairseqIncrementalDecoder):
 
         # T x B x C -> B x T x C
         x = x.transpose(0, 1)
-
+        self.project_out_dim = None
         if self.project_out_dim is not None:
             x = self.project_out_dim(x)
 
