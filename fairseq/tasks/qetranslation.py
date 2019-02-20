@@ -207,7 +207,9 @@ class QETranslationTask(FairseqTask):
         )
         
     def load_dataset2(self, split, **kwargs):
-        prefix = os.path.join(self.args.data, split+"."+self.args.source_lang+"-"+self.args.target_lang)
+        data_path = self.args.data[0]
+
+        prefix = os.path.join(data_path, split+"."+self.args.source_lang+"-"+self.args.target_lang)
         src_sentences, src_lengths = [],[]
         with open(prefix+"."+self.args.source_lang, encoding='utf-8') as file:
             for line in file:
