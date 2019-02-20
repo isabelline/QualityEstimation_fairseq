@@ -58,7 +58,7 @@ def main(args, init_distributed=False):
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     ))
 
-    model = utils.load_partial_weights(model, args.weight_path)
+    model = utils.load_partial_weights(model, args.weight_dir)
 
     # Make a dummy batch to (i) warm the caching allocator and (ii) as a
     # placeholder DistributedDataParallel when there's an uneven number of
