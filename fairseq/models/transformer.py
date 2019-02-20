@@ -773,6 +773,8 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         self.hidden_size = 128
         self.num_layers = 1
         self.blstm = nn.LSTM(512, self.hidden_size,self.num_layers, batch_first=True, bidirectional=True)
+        self.fc_end = nn.Linear(512, 3)
+        self.fc_end_end = nn.Linear(3, 1)
 
 
     def forward(self, prev_output_tokens, encoder_out=None, incremental_state=None):
@@ -858,10 +860,12 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
     #    c0 = torch.zeros(self.hidden_size)
 
         out, _ = self.blstm(x)
+        print("^^^^^^^^^^^^^^^")
+        print(out.shape)
 
   #      out, _ = self.blstm(x,(h0,c0))
-        x = F.linear(out, 24)
-        x = F.linear(x, 1)
+        x = self.fc_end(out)
+        x = self.fc_end_end(x)
 
         return x, {'attn': attn, 'inner_states': inner_states}
 
