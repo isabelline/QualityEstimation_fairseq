@@ -73,7 +73,7 @@ for file in os.listdir(os.path.dirname(__file__)):
             TASK_REGISTRY[task_name].add_args(group_args)
             print("!!!!!!!!")
             for k in TASK_REGISTRY.keys():
-                print(TASK_REGISTRY[k])
+                print(TASK_REGISTRY[k].args)
             globals()[task_name + '_parser'] = parser
 
 
