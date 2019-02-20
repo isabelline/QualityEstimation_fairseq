@@ -369,6 +369,7 @@ def load_dataset_splits(task, splits):
         if split == 'train':
             print("@@@@@@@@@")
             print(task.args)
+            print(split)
             task.load_dataset(split, combine=True)
         else:
             for k in itertools.count():
