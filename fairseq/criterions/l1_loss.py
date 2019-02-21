@@ -9,7 +9,7 @@ import math
 import torch.nn.functional as F
 import torch
 from scipy.stats import pearsonr
-
+import numpy as np
 from fairseq import utils
 
 from . import FairseqCriterion, register_criterion
@@ -56,6 +56,8 @@ class MAECriterion(FairseqCriterion):
             'ntokens': sample['ntokens'],
             'nsentences': n_sentences,
             'sample_size': sample_size,
+            'hter' :hter_np,
+            'pred': output_np
         }
 
         return loss, sample_size, logging_output
@@ -73,12 +75,23 @@ class MAECriterion(FairseqCriterion):
         nsentences = sum(log.get('nsentences', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
         mean_err = float(err) /float(nsentences)
+        hter_all = np.asarray([])
+        pred_all = np.asarray([])
+
+        for log in logging_outputs:
+            hter_all np.concatenate((log.get('hter', 0),hter_all), axis = 0)
+            pred_all np.concatenate((log.get('pred', 0),pred_all), axis = 0)
+                                     
+        print("FFFFFFFFFFFFFFFFFFFFFFFFFF")
+        print(hter_all)
+        p = pearsonr(hter_all, pred_all)[0]
 
         agg_output = {
             'loss': err / nsentences ,
             'ntokens': ntokens,
             'nsentences': nsentences,
             'sample_size': sample_size,
+            'pearson': p,
         }
         if sample_size != ntokens:
             agg_output['nll_loss'] = loss_sum / ntokens / math.log(2)
