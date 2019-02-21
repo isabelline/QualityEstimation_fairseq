@@ -26,6 +26,7 @@ def load_partial_weights(model, path):
             tmp_dict[k] = v
     for k,v in model_dict.items():
         if k in tmp_dict:
+            print(k)
             print("Changing")
             print(model_dict[k].shape)
             print("from")
