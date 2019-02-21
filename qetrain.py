@@ -160,6 +160,7 @@ def train(args, trainer, task, epoch_itr):
                 extra_meters[k].update(v, log_output['sample_size'])
             else:
                 extra_meters[k].update(v)
+                continue
             stats[k] = extra_meters[k].avg
         progress.log(stats)
 
