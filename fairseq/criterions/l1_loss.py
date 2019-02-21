@@ -84,8 +84,6 @@ class MAECriterion(FairseqCriterion):
         for log in logging_outputs:
             hter_all =np.concatenate((log.get('hter', 0),hter_all))
             pred_all =np.concatenate((log.get('pred', 0),pred_all))
-            print(hter_all)
-            print(pred_all)
                                      
         p = pearsonr(hter_all, pred_all)[0]
 
