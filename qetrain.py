@@ -260,7 +260,7 @@ def validate(args, trainer, task, epoch_itr, subsets):
             for k, v in log_output.items():
                 if k in ['loss', 'nll_loss', 'ntokens', 'nsentences', 'sample_size']:
                     continue
-                extra_meters[k].update(v)
+#                extra_meters[k].update(v)
 
         # log validation stats
         stats = get_valid_stats(trainer)
