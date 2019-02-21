@@ -1225,7 +1225,7 @@ def base_architecture(args):
 @register_model_architecture('transformer_qe', 'transformer_for_q')
 def transformer_qe(args):
     args.encoder_embed_path = getattr(args, 'encoder_embed_path', None)
-    args.encoder_embed_dim = getattr(args, 'encoder_embed_dim', 512)
+    args.encoder_embed_dim = getattr(args, 'encoder_embed_dim', 1024)
     args.encoder_ffn_embed_dim = getattr(args, 'encoder_ffn_embed_dim', 2048)
     args.encoder_layers = getattr(args, 'encoder_layers', 6)
     args.encoder_attention_heads = getattr(args, 'encoder_attention_heads', 8)
@@ -1253,7 +1253,7 @@ def transformer_qe(args):
 
 @register_model_architecture('transformer', 'transformer_iwslt_de_en')
 def transformer_iwslt_de_en(args):
-    args.encoder_embed_dim = getattr(args, 'encoder_embed_dim', 512)
+    args.encoder_embed_dim = getattr(args, 'encoder_embed_dim', 1024)
     args.encoder_ffn_embed_dim = getattr(args, 'encoder_ffn_embed_dim', 1024)
     args.encoder_attention_heads = getattr(args, 'encoder_attention_heads', 4)
     args.encoder_layers = getattr(args, 'encoder_layers', 6)
