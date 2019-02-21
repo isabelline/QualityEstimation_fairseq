@@ -270,7 +270,7 @@ def validate(args, trainer, task, epoch_itr, subsets):
         
         # to numpy array
         hters_np = np.asarray(valid_hters)
-        hters_np = np.concatencate(hters_np)
+        hters_np = np.concatenate(hters_np)
         preds_np =np.asarray(valid_preds)
         preds_np = np.concatenate(preds_np)
         p = pearsonr(hters_np, preds_np)[0]
