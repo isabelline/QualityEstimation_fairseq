@@ -144,8 +144,6 @@ def train(args, trainer, task, epoch_itr):
     first_valid = args.valid_subset.split(',')[0]
     max_update = args.max_update or math.inf
     for i, samples in enumerate(progress, start=epoch_itr.iterations_in_epoch):
-        print("!!!!!!!!!!!!!!!!!!!!!!")
-        print(samples)
 
         log_output = trainer.train_step(samples)
         if log_output is None:
