@@ -57,9 +57,12 @@ class MAECriterion(FairseqCriterion):
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
         print("sample size")
         print(sample_size)
+        print("n sentences")
+        print(n_sentences)
         logging_output = {
             'loss': utils.item(loss.data) if reduce else loss.data,
             'ntokens': sample['ntokens'],
+            'nsentences': nsentences,
             'sample_size': sample_size,
         }
 
@@ -75,7 +78,7 @@ class MAECriterion(FairseqCriterion):
         nsentences = sum(log.get('nsentences', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
         agg_output = {
-            'loss': loss_sum / sample_size ,
+            'loss': loss_sum / nsentences ,
             'ntokens': ntokens,
             'nsentences': nsentences,
             'sample_size': sample_size,
