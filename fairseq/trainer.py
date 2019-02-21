@@ -278,7 +278,8 @@ class Trainer(object):
             self.meters['loss_scale'].update(self.optimizer.scaler.loss_scale)
 
         self.meters['train_wall'].stop()
-
+        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        print(logging_output)
         return logging_output
 
     def valid_step(self, sample, raise_oom=False):
