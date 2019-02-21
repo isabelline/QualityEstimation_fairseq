@@ -53,7 +53,7 @@ class MAECriterion(FairseqCriterion):
 #        print("(((((((((((((((((((((((")
 #        print(loss)
 
-        loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction=reduce)
+        loss = F.l1_loss(net_output, target, size_average=None, reduce=reduce)
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
         print("sample size")
         print(sample_size)
