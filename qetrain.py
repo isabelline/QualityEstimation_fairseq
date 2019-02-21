@@ -149,6 +149,8 @@ def train(args, trainer, task, epoch_itr):
         log_output = trainer.train_step(samples)
         if log_output is None:
             continue
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print(log_output)
 
         # log mid-epoch stats
         stats = get_training_stats(trainer)
