@@ -278,8 +278,7 @@ class Trainer(object):
             self.meters['loss_scale'].update(self.optimizer.scaler.loss_scale)
 
         self.meters['train_wall'].stop()
-        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        print(logging_output)
+
         return logging_output
 
     def valid_step(self, sample, raise_oom=False):
@@ -343,8 +342,7 @@ class Trainer(object):
 
     def dummy_train_step(self, dummy_batch):
         """Dummy training step for warming caching allocator."""
-        print("====================")
-        print(len(dummy_batch))
+
         self.train_step(dummy_batch, dummy_batch=True)
         self.zero_grad()
 
