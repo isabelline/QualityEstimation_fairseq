@@ -24,7 +24,14 @@ def load_partial_weights(model, path):
     for k,v in pretrained_dict.items():
         if k in model_dict:
             tmp_dict[k] = v
-    model_dict.update(tmp_dict)
+    for k,v in model_dict.items():
+        if k in tmp_dict:
+            print("Changing")
+            print(model_dict[k].shape)
+            print("from")
+            print(tmp_dict[k].shape)
+            model_dict[k] = tmp_dict[k]
+#    model_dict.update(tmp_dict)
     model.load_state_dict(model_dict)
     return model
 
