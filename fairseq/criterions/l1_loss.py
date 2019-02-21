@@ -49,6 +49,7 @@ class MAECriterion(FairseqCriterion):
 
         loss = F.l1_loss(net_output, target, size_average=None, reduce=reduce)
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
+        print("")
         print("~~~~~~~~~~~~~~~~~")
         print(loss)
         logging_output = {
@@ -77,17 +78,13 @@ class MAECriterion(FairseqCriterion):
         mean_err = float(err) /float(nsentences)
         hter_all = np.asarray([])
         pred_all = np.asarray([])
-        print("AAAAAAAAAAAAAA")
 
         for log in logging_outputs:
             hter_all =np.concatenate((log.get('hter', 0),hter_all))
             pred_all =np.concatenate((log.get('pred', 0),pred_all))
-            print("WWWWWWWWWWWWWWWWWWWWWW")
             print(hter_all)
             print(pred_all)
                                      
-        print("FFFFFFFFFFFFFFFFFFFFFFFFFF")
-        print(hter_all)
         p = pearsonr(hter_all, pred_all)[0]
 
         agg_output = {
@@ -96,6 +93,8 @@ class MAECriterion(FairseqCriterion):
             'nsentences': nsentences,
             'sample_size': sample_size,
             'pearson': p,
+            'hter':hter,
+            'pred':pred,
         }
         if sample_size != ntokens:
             agg_output['nll_loss'] = loss_sum / ntokens / math.log(2)
