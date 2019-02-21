@@ -46,7 +46,7 @@ class MAECriterion(FairseqCriterion):
 #        loss = torch.sum(loss)
 #        print("(((((((((((((((((((((((")
 #        print(loss)
-
+#only sum not mean
         loss = F.l1_loss(net_output, target, size_average=None, reduce=reduce)
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
         print("")
