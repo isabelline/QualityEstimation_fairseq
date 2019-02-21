@@ -274,6 +274,9 @@ def validate(args, trainer, task, epoch_itr, subsets):
         preds_np =np.asarray(valid_preds)
         preds_np = np.concatenate(preds_np)
         p = pearsonr(hters_np, preds_np)[0]
+        print("!!!!!!!!!!!!")
+        print(hters_np)
+        print(preds_np)
         print("valid pearson")
         print(p)
         print("valid mae")
