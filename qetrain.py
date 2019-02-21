@@ -15,7 +15,8 @@ import os
 import math
 import time
 import random
-
+from scipy.stats import pearsonr
+import numpy as np
 import torch
 
 from fairseq import distributed_utils, options, progress_bar, tasks, utils
@@ -23,7 +24,7 @@ from fairseq.data import iterators
 from fairseq.trainer import Trainer
 from fairseq.meters import AverageMeter, StopwatchMeter
 from fairseq.utils import import_user_module
-
+from sklearn.metrics import mean_absolute_error
 
 def main(args, init_distributed=False):
     import_user_module(args)
@@ -252,6 +253,8 @@ def validate(args, trainer, task, epoch_itr, subsets):
         for sample in progress:
 
             log_output = trainer.valid_step(sample)
+            valid_hters.append(log_output['hter'])
+            valid_preds.append(log_output['pred'])
 
             for k, v in log_output.items():
                 if k in ['loss', 'nll_loss', 'ntokens', 'nsentences', 'sample_size']:
@@ -263,6 +266,17 @@ def validate(args, trainer, task, epoch_itr, subsets):
         for k, meter in extra_meters.items():
             stats[k] = meter.avg
         progress.print(stats)
+        
+        # to numpy array
+        hters_np = np.asarray(valid_hters)
+        hters_np = np.concatencate(hters_np)
+        preds_np =np.asarray(valid_preds)
+        preds_np = np.concatenate(preds_np)
+        p = pearsonr(hters_np, preds_np)[0]
+        print("valid pearson")
+        print(p)
+        print("valid mae")
+        mean_absolute_error(hters_np, preds_np)
 
         valid_losses.append(stats['valid_loss'])
     return valid_losses
