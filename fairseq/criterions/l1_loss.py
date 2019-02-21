@@ -79,8 +79,8 @@ class MAECriterion(FairseqCriterion):
         pred_all = np.asarray([])
 
         for log in logging_outputs:
-            hter_all np.concatenate((log.get('hter', 0),hter_all), axis = 0)
-            pred_all np.concatenate((log.get('pred', 0),pred_all), axis = 0)
+            hter_all =np.concatenate((log.get('hter', 0),hter_all), axis = 0)
+            pred_all =np.concatenate((log.get('pred', 0),pred_all), axis = 0)
                                      
         print("FFFFFFFFFFFFFFFFFFFFFFFFFF")
         print(hter_all)
