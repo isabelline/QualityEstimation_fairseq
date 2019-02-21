@@ -25,7 +25,7 @@ def load_partial_weights(model, path):
         if k in model_dict:
             tmp_dict[k] = v
     for k,v in model_dict.items():
-        if k in tmp_dict and model_dict[k].shape = tmp_dict[k].shape:
+        if k in tmp_dict and model_dict[k].shape == tmp_dict[k].shape:
             print(k)
             print("Changing")
             print(model_dict[k].shape)
