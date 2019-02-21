@@ -40,13 +40,6 @@ class MAECriterion(FairseqCriterion):
         output_np = net_output.data.cpu().numpy()
         
         p = pearsonr(hter_np, output_np)[0]
-        print("")
-        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-        print(p)
-        print("hter")
-        print(hter_np)
-        print("output")
-        print(output_np)
 #        loss = torch.abs(net_output-target)
 #        print("^^^^^^^^^^^^^^^^^^^^^^^")
 #        print(loss)
@@ -56,6 +49,7 @@ class MAECriterion(FairseqCriterion):
 
         loss = F.l1_loss(net_output, target, size_average=None, reduce=reduce)
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
+        print(loss)
         logging_output = {
             'loss': utils.item(loss.data) if reduce else loss.data,
             'ntokens': sample['ntokens'],
