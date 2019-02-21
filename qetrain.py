@@ -70,10 +70,6 @@ def main(args, init_distributed=False):
 
     dummy_batch = task.dataset('train').get_dummy_batch(args.max_tokens, max_positions)
     oom_batch = task.dataset('train').get_dummy_batch(1, max_positions)
-    print("~~~~~~~~~~~~~~~~~~~")
-    print(oom_batch)
-    print("~~~~~~~~~~~~~~~~~~~")
-    print(dummy_batch['id'].shape)
 
     # Build trainer
     trainer = Trainer(args, task, model, criterion, dummy_batch, oom_batch)
@@ -115,6 +111,9 @@ def main(args, init_distributed=False):
 
         if epoch_itr.epoch % args.validate_interval == 0:
             valid_losses = validate(args, trainer, task, epoch_itr, valid_subsets)
+            
+        print("````````````````````````````````````````````")
+        print(valid_losses)
 
         # only use first validation loss to update the learning rate
         lr = trainer.lr_step(epoch_itr.epoch, valid_losses[0])
@@ -146,8 +145,7 @@ def train(args, trainer, task, epoch_itr):
     first_valid = args.valid_subset.split(',')[0]
     max_update = args.max_update or math.inf
     for i, samples in enumerate(progress, start=epoch_itr.iterations_in_epoch):
-        print("%%%%%%%%%%%%%%%%%%")
-        print(len(samples))
+
         log_output = trainer.train_step(samples)
         if log_output is None:
             continue
