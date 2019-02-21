@@ -217,6 +217,8 @@ def get_training_stats(trainer):
 def validate(args, trainer, task, epoch_itr, subsets):
     """Evaluate the model on the validation set(s) and return the losses."""
     valid_losses = []
+    valid_hters = []
+    valid_preds = []
     for subset in subsets:
         # Initialize data iterator
         itr = task.get_batch_iterator(
@@ -248,8 +250,7 @@ def validate(args, trainer, task, epoch_itr, subsets):
         extra_meters = collections.defaultdict(lambda: AverageMeter())
 
         for sample in progress:
-            print("YYYYYYYYYYYYYYYYYYYYYYY")
-            print(sample)
+
             log_output = trainer.valid_step(sample)
 
             for k, v in log_output.items():
