@@ -98,8 +98,8 @@ def main(args, init_distributed=False):
     )
 
     # Load the latest checkpoint if one is available
-    if not load_checkpoint(args, trainer, epoch_itr):
-        trainer.dummy_train_step([dummy_batch])
+#    if not load_checkpoint(args, trainer, epoch_itr):
+#        trainer.dummy_train_step([dummy_batch])
 
     # Train until the learning rate gets too small
     max_epoch = args.max_epoch or math.inf
