@@ -865,7 +865,14 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         else:
             y = torch.zeros((out.shape[0], 100-out.shape[1], out.shape[2])).cuda(1)
             z = torch.cat((out, y), dim =1).cuda(1)
-        z = z.view(out.size(0), -1)
+        print("out size")
+        print(out.shape)
+        print("z before shape")
+        print(z.shape)
+        z = z.view(out.shape[0], -1)
+        print("z after shape")
+        print(z.shape)
+
   #      out, _ = self.blstm(x,(h0,c0))
         
   #      x = F.linear(out, 20)
