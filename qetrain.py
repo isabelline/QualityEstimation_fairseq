@@ -248,6 +248,8 @@ def validate(args, trainer, task, epoch_itr, subsets):
         extra_meters = collections.defaultdict(lambda: AverageMeter())
 
         for sample in progress:
+            print("YYYYYYYYYYYYYYYYYYYYYYY")
+            print(sample)
             log_output = trainer.valid_step(sample)
 
             for k, v in log_output.items():
