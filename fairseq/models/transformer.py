@@ -869,6 +869,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         print(out.shape)
         print("z before shape")
         print(z.shape)
+        z = z.contiguous()
         z = z.view(out.shape[0], -1)
         print("z after shape")
         print(z.shape)
