@@ -78,6 +78,8 @@ class MAECriterion(FairseqCriterion):
         mean_err = float(err) /float(nsentences)
         hter_all = np.asarray([])
         pred_all = np.asarray([])
+        hter =log.get('hter', 0)
+        pred = log.get('pred', 0)
 
         for log in logging_outputs:
             hter_all =np.concatenate((log.get('hter', 0),hter_all))
