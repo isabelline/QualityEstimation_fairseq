@@ -773,7 +773,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
             self.layer_norm = LayerNorm(embed_dim)
         self.hidden_size = 128
         self.num_layers = 1
-        self.blstm = nn.LSTM(512, self.hidden_size,self.num_layers, batch_first=True, bidirectional=True)
+        self.blstm = nn.LSTM(1024, self.hidden_size,self.num_layers, batch_first=True, bidirectional=True)
         self.fc_end = nn.Linear(self.hidden_size*2*1024, 3)
         self.fc_end_end = nn.Linear(3, 1)
 
