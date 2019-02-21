@@ -159,8 +159,8 @@ def train(args, trainer, task, epoch_itr):
             if 'loss' in k:
                 extra_meters[k].update(v, log_output['sample_size'])
             else:
-                extra_meters[k].update(v)
                 continue
+                extra_meters[k].update(v)
             stats[k] = extra_meters[k].avg
         progress.log(stats)
 
