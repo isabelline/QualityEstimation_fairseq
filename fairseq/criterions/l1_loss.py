@@ -47,7 +47,7 @@ class MAECriterion(FairseqCriterion):
         print("output")
         print(output_np)
 
-        loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction='mean')
+        loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction='sum')
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
         logging_output = {
             'loss': utils.item(loss.data) if reduce else loss.data,
