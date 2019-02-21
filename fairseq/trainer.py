@@ -170,8 +170,7 @@ class Trainer(object):
         logging_outputs, sample_sizes, ooms = [], [], 0
         for i, sample in enumerate(samples):
             sample = self._prepare_sample(sample)
-            print("[[[[[[[[[[[[[[[[[[[[[[[[[[[[")
-            print(sample)
+
             if sample is None:
                 # when sample is None, run forward/backward on a dummy batch
                 # and ignore the resulting gradients
