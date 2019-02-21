@@ -30,6 +30,8 @@ class MAECriterion(FairseqCriterion):
         """
         net_output = model(**sample['net_input'])
         target = model.get_hters(sample).view(-1)
+        print("======================================")
+        print(target.shape)
         
         net_output = net_output[0]
         net_output = torch.squeeze(net_output)
