@@ -112,8 +112,7 @@ def main(args, init_distributed=False):
         if epoch_itr.epoch % args.validate_interval == 0:
             valid_losses = validate(args, trainer, task, epoch_itr, valid_subsets)
             
-        print("````````````````````````````````````````````")
-        print(valid_losses)
+
 
         # only use first validation loss to update the learning rate
         lr = trainer.lr_step(epoch_itr.epoch, valid_losses[0])
@@ -149,8 +148,7 @@ def train(args, trainer, task, epoch_itr):
         log_output = trainer.train_step(samples)
         if log_output is None:
             continue
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        print(log_output)
+
 
         # log mid-epoch stats
         stats = get_training_stats(trainer)
