@@ -63,7 +63,7 @@ class MAECriterion(FairseqCriterion):
         logging_output = {
             'loss': utils.item(loss.data) if reduce else loss.data,
             'ntokens': sample['ntokens'],
-            'nsentences': nsentences,
+            'nsentences': n_sentences,
             'sample_size': sample_size,
         }
 
