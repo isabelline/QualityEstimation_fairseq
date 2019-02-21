@@ -31,6 +31,7 @@ class MAECriterion(FairseqCriterion):
         """
         net_output = model(**sample['net_input'])
         target = model.get_hters(sample).view(-1)
+        n_sentences = target.shape[0]
         
         net_output = net_output[0]
         net_output = torch.squeeze(net_output)
