@@ -60,6 +60,11 @@ class MAECriterion(FairseqCriterion):
         print(sample_size)
         print("n sentences")
         print(n_sentences)
+        print("loss")
+        print( loss.data)
+        print(utils.item(loss.data))
+        print("reduce")
+        print(reduce)
         logging_output = {
             'loss': utils.item(loss.data) if reduce else loss.data,
             'ntokens': sample['ntokens'],
