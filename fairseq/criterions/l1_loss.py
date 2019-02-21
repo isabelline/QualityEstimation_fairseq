@@ -8,6 +8,7 @@
 import math
 import torch.nn.functional as F
 import torch
+from scipy.stats import pearsonr
 
 from fairseq import utils
 
@@ -33,6 +34,13 @@ class MAECriterion(FairseqCriterion):
         
         net_output = net_output[0]
         net_output = torch.squeeze(net_output)
+        
+        hter_np = target.data.cpu().numpy()
+        output_np = net_output.data.cpu().numpy()
+        
+        p = pearsonr(hter_np, output_np)[0]
+        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        print(p)
 
         loss = F.l1_loss(net_output, target, size_average=None, reduce=None, reduction='mean')
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
