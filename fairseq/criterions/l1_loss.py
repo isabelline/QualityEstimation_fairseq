@@ -79,12 +79,17 @@ class MAECriterion(FairseqCriterion):
     @staticmethod
     def aggregate_logging_outputs(logging_outputs):
         """Aggregate logging outputs from data parallel training."""
+        err = 0
+        for log in logging_outputs:
+            err += log.get('loss', 0) * log.get('nsentences', 0)
         loss_sum = sum(log.get('loss', 0) for log in logging_outputs)
         ntokens = sum(log.get('ntokens', 0) for log in logging_outputs)
         nsentences = sum(log.get('nsentences', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
+        mean_err = float(err) /float(nsentences)
+
         agg_output = {
-            'loss': loss_sum / nsentences ,
+            'loss': err / nsentences ,
             'ntokens': ntokens,
             'nsentences': nsentences,
             'sample_size': sample_size,
