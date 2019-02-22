@@ -150,7 +150,7 @@ class TransformerModel(FairseqModel):
 
 
 @register_model('transformer_qe')
-class TransformerModel(FairseqModel):
+class TransformerModelQE(FairseqModel):
     """
     Transformer model from `"Attention Is All You Need" (Vaswani, et al, 2017)
     <https://arxiv.org/abs/1706.03762>`_.
@@ -285,7 +285,7 @@ class TransformerModel(FairseqModel):
 
         encoder = TransformerEncoder(args, src_dict, encoder_embed_tokens)
         decoder = TransformerDecoderQE(args, tgt_dict, decoder_embed_tokens)
-        return TransformerModel(encoder, decoder)
+        return TransformerModelQE(encoder, decoder)
 
 
 @register_model('transformer_lm')
