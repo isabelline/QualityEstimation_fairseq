@@ -859,8 +859,8 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
 
    #     h0 = torch.zeros(self.hidden_size)
     #    c0 = torch.zeros(self.hidden_size)
-        h0 = torch.zeros(self.num_layers, x.shape[0],self.hidden_size) 
-        c0 = torch.zeros(self.num_layers, x.shape[0],self.hidden_size) 
+        h0 = torch.zeros(self.num_layers, x.shape[0],self.hidden_size).cuda(1)
+        c0 = torch.zeros(self.num_layers, x.shape[0],self.hidden_size).cuda(1)
         torch.nn.init.xavier_uniform(h0)
         torch.nn.init.xavier_uniform(c0)
 
