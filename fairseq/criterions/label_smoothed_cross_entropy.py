@@ -36,6 +36,7 @@ class LabelSmoothedCrossEntropyCriterion(FairseqCriterion):
         3) logging outputs to display while training
         """
         net_output = model(**sample['net_input'])
+        log = net_output[1]
         loss, nll_loss = self.compute_loss(model, net_output, sample, reduce=reduce)
         sample_size = sample['target'].size(0) if self.args.sentence_avg else sample['ntokens']
         logging_output = {
@@ -44,6 +45,8 @@ class LabelSmoothedCrossEntropyCriterion(FairseqCriterion):
             'ntokens': sample['ntokens'],
             'nsentences': sample['target'].size(0),
             'sample_size': sample_size,
+            'encoder_feat': log['encoder_feat'],
+            'decoder_feat': log['decoder_feat']
         }
         return loss, sample_size, logging_output
 
@@ -67,10 +70,17 @@ class LabelSmoothedCrossEntropyCriterion(FairseqCriterion):
         ntokens = sum(log.get('ntokens', 0) for log in logging_outputs)
         nsentences = sum(log.get('nsentences', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
+        en = []
+        de = []
+        for log in logging_outputs:
+            en.append(log.get('encoder_feat', 0))
+            de.append(log.get('decoder_feat', 0))
         return {
             'loss': sum(log.get('loss', 0) for log in logging_outputs) / sample_size / math.log(2),
             'nll_loss': sum(log.get('nll_loss', 0) for log in logging_outputs) / ntokens / math.log(2),
             'ntokens': ntokens,
             'nsentences': nsentences,
             'sample_size': sample_size,
+            'en_feat': en,
+            'de_feat': de
         }
