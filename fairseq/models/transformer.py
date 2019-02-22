@@ -645,7 +645,9 @@ class TransformerDecoder(FairseqIncrementalDecoder):
 
         # T x B x C -> B x T x C
         x = x.transpose(0, 1)
-        self.project_out_dim = None
+        
+        decoder_feat = x
+        
         if self.project_out_dim is not None:
             x = self.project_out_dim(x)
 
@@ -656,7 +658,7 @@ class TransformerDecoder(FairseqIncrementalDecoder):
             else:
                 x = F.linear(x, self.embed_out)
 
-        return x, {'attn': attn, 'inner_states': inner_states}
+        return x, {'attn': attn, 'inner_states': inner_states, 'decoder_feat':decoder_feat}
 
     def max_positions(self):
         """Maximum output length supported by the decoder."""
