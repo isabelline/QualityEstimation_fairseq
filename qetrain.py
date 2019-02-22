@@ -62,7 +62,9 @@ def main(args, init_distributed=False):
     model = utils.load_partial_weights(model, args.weight_dir)
     print("SSSSSSSSSSSSSSSSSSSSSSSSSSSS")
     schild = model.children()
-    print(schild[1].embed_tokens)
+    en =next(schild)
+    de = next(schild)
+    print(de.embed_tokens)
 
     # Make a dummy batch to (i) warm the caching allocator and (ii) as a
     # placeholder DistributedDataParallel when there's an uneven number of
