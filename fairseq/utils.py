@@ -16,6 +16,24 @@ import torch
 from torch.serialization import default_restore_location
 
 
+def freeze_certain_layers(model):
+    chlidren = model.children()
+    encoder = next(children)
+    decoder = next(children)
+    for layer in encoder.children():
+        for param in layer.parameters():
+            param.requires_grad = False
+    for layer in decoder.children():
+        for param in layer.parameters():
+            param.requires_grad = False
+    blstm = decoder.blstm.parameters()
+    blstm.requires_grad = True
+    fc1 = decoder.fc_end.parameters()
+    fc1.requires_grad = True
+    fc2 = decoder.fc_end_end.parameters()
+    fc2.requires_grad = True
+    return model
+
 def load_partial_weights(model, path):
     pretrained_dict = torch.load(path)
     pretrained_dict = pretrained_dict['model']
