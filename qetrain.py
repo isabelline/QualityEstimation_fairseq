@@ -60,7 +60,7 @@ def main(args, init_distributed=False):
     ))
 
     model = utils.load_partial_weights(model, args.weight_dir)
- #   model = utils.freeze_certain_layers(model)
+    model = utils.freeze_certain_layers(model)
 
     # Make a dummy batch to (i) warm the caching allocator and (ii) as a
     # placeholder DistributedDataParallel when there's an uneven number of
@@ -145,12 +145,15 @@ def train(args, trainer, task, epoch_itr):
     extra_meters = collections.defaultdict(lambda: AverageMeter())
     first_valid = args.valid_subset.split(',')[0]
     max_update = args.max_update or math.inf
+    en = []
+    de = []
     for i, samples in enumerate(progress, start=epoch_itr.iterations_in_epoch):
 
         log_output = trainer.train_step(samples)
         if log_output is None:
             continue
-
+        en.append(log_output['en_feat']
+        de.append(log_output['de_feat']
 
         # log mid-epoch stats
         stats = get_training_stats(trainer)
@@ -177,6 +180,11 @@ def train(args, trainer, task, epoch_itr):
         if num_updates >= max_update:
             break
 
+                  
+    with open("ss.txt", 'w') as f:
+        f.write(str(en))
+        f.write(str(de))
+                  
     # log end-of-epoch stats
     stats = get_training_stats(trainer)
     for k, meter in extra_meters.items():
