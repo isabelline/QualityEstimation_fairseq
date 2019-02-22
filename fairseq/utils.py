@@ -17,7 +17,7 @@ from torch.serialization import default_restore_location
 
 
 def freeze_certain_layers(model):
-    chlidren = model.children()
+    children = model.children()
     encoder = next(children)
     decoder = next(children)
     for layer in encoder.children():
