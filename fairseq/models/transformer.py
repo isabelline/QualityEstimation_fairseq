@@ -843,6 +843,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
 
         # T x B x C -> B x T x C
         x = x.transpose(0, 1)
+        decoder_feat = x
         
   #      y = torch.zeros((prev_output_tokens.shape[0], 1024-prev_output_tokens.shape[1], x.shape[2])).cuda(1)
   #      z = torch.cat((x,y),dim =1).cuda(1)
@@ -884,7 +885,7 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         x = self.fc_end(z)
         x = self.fc_end_end(x)
 
-        return x, {'attn': attn, 'inner_states': inner_states}
+        return x, {'attn': attn, 'inner_states': inner_states, 'decoder_feat':decoder_feat, 'encoder_feat':prev_output_tokens}
 
     def max_positions(self):
         """Maximum output length supported by the decoder."""
