@@ -774,10 +774,10 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
         self.hidden_size = 128
         self.num_layers = 1
         self.blstm = nn.LSTM(1024, self.hidden_size,self.num_layers, batch_first=True, bidirectional=False)
-        self.fc_end = nn.Linear(self.hidden_size*50, 20)
+        self.fc_end = nn.Linear(self.hidden_size*30, 20)
         self.fc_end_end = nn.Linear(20, 1)
-        nn.init.xavier_uniform(self.fc_end.weight)
-        nn.init.xavier_uniform(self.fc_end_end.weight)
+        nn.init.xavier_uniform_(self.fc_end.weight)
+        nn.init.xavier_uniform_(self.fc_end_end.weight)
 
 
     def forward(self, prev_output_tokens, encoder_out=None, incremental_state=None):
@@ -861,15 +861,15 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
     #    c0 = torch.zeros(self.hidden_size)
         h0 = torch.zeros(self.num_layers, x.shape[0],self.hidden_size).cuda(1)
         c0 = torch.zeros(self.num_layers, x.shape[0],self.hidden_size).cuda(1)
-        torch.nn.init.xavier_uniform(h0)
-        torch.nn.init.xavier_uniform(c0)
+        torch.nn.init.xavier_uniform_(h0)
+        torch.nn.init.xavier_uniform_(c0)
 
         out, _ = self.blstm(x, (h0,c0))
 
-        if out.shape[1] >= 50:
-            z = out[:,:50,:]
+        if out.shape[1] >= 30:
+            z = out[:,:30,:]
         else:
-            y = torch.zeros((out.shape[0], 50-out.shape[1], out.shape[2])).cuda(1)
+            y = torch.zeros((out.shape[0], 30-out.shape[1], out.shape[2])).cuda(1)
             z = torch.cat((out, y), dim =1).cuda(1)
         z = z.contiguous()
         z = z.view(out.shape[0], -1)
