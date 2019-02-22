@@ -27,11 +27,14 @@ def freeze_certain_layers(model):
         for param in layer.parameters():
             param.requires_grad = False
     blstm = decoder.blstm.parameters()
-    blstm.requires_grad = True
+    for param in blstm:
+        param.requires_grad = True
     fc1 = decoder.fc_end.parameters()
-    fc1.requires_grad = True
+    for param in fc1:
+        param.requires_grad = True
     fc2 = decoder.fc_end_end.parameters()
-    fc2.requires_grad = True
+    for param in fc2:
+        param.requires_grad = True
     return model
 
 def load_partial_weights(model, path):
