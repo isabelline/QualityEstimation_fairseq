@@ -53,8 +53,7 @@ def collate(
     else:
         ntokens = sum(len(s['source']) for s in samples)
     hter_token = torch.FloatTensor([s['hter'] for s in samples])
-    print("@@@@@@@@@@@@@@@@")
-    print(type(src_tokens[0]))
+
 
     batch = {
         'id': id,
@@ -147,6 +146,8 @@ class LanguagePairHTERDataset(FairseqDataset):
             eos = self.src_dict.eos()
             if self.src[index][-1] == eos:
                 src_item = self.src[index][:-1]
+        print("############")
+        print(type(src_item[0]))
 
         return {
             'id': index,
