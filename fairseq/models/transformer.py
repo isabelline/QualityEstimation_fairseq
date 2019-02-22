@@ -845,8 +845,8 @@ class TransformerDecoderQE(FairseqIncrementalDecoder):
   #      z = x
 
 
-        if self.project_out_dim is not None:
-            x = self.project_out_dim(x)
+   #     if self.project_out_dim is not None:
+   #         x = self.project_out_dim(x)
 
     #    if self.adaptive_softmax is None:
             # project back to size of vocabulary
