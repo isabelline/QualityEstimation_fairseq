@@ -217,6 +217,8 @@ class QETranslationTask(FairseqTask):
             for line in file:
                 sentence = line.strip()
                 tokens = Tokenizer.tokenize(sentence, self.src_dict, add_if_not_exist=False)
+                print("##################")
+                print(type(tokens[0]))
                 src_sentences.append(tokens)
                 src_lengths.append(tokens.numel())
         tgt_sentences, tgt_lengths = [],[]
