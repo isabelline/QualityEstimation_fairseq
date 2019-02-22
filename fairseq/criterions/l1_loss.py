@@ -30,6 +30,8 @@ class MAECriterion(FairseqCriterion):
         3) logging outputs to display while training
         """
         net_output = model(**sample['net_input'])
+        log = net_output[1]
+        
         target = model.get_hters(sample).view(-1)
         n_sentences = target.shape[0]
         
@@ -58,7 +60,9 @@ class MAECriterion(FairseqCriterion):
             'nsentences': n_sentences,
             'sample_size': sample_size,
             'hter' :hter_np,
-            'pred': output_np
+            'pred': output_np,
+            'encoder_feat': log['encoder_feat'],
+            'decoder_feat': log['decoder_feat']            
         }
 
         return loss, sample_size, logging_output
@@ -80,6 +84,11 @@ class MAECriterion(FairseqCriterion):
         pred_all = np.asarray([])
         hter =log.get('hter', 0)
         pred = log.get('pred', 0)
+        en = []
+        de = []
+        for log in logging_outputs:
+            en.append(log.get('encoder_feat', 0))
+            de.append(log.get('decoder_feat', 0))
 
         for log in logging_outputs:
             hter_all =np.concatenate((log.get('hter', 0),hter_all))
@@ -95,6 +104,8 @@ class MAECriterion(FairseqCriterion):
             'pearson': p,
             'hter':hter,
             'pred':pred,
+            'en_feat': en,
+            'de_feat': de            
         }
         if sample_size != ntokens:
             agg_output['nll_loss'] = loss_sum / ntokens / math.log(2)
