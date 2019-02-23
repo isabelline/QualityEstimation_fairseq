@@ -1,3 +1,16 @@
+# Modified for Quality Esitimation
+
+- qetrain.py : for training
+- qepreprocess.py: for preprocessing and constructing raw indexted dataset instance
+- model/Transformer.py : Transformer model and modified version of transformer for qe implementation
+- task/qetranslation.pt: task registration file for qe task.
+- criterion/MAE.py : mae(l1 loss) calculation implemented. 
+
+- currently trainging is working but the pearson coefficient is 0.01....<br>
+ the predicted output seems to be random with mean of 0.1
+
+
+
 # Introduction <img src="fairseq_logo.png" width="50"> 
 
 Fairseq(-py) is a sequence modeling toolkit that allows researchers and
