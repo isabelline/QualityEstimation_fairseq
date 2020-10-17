@@ -6,8 +6,6 @@
 - task/qetranslation.pt: task registration file for qe task.
 - criterion/MAE.py : mae(l1 loss) calculation implemented. 
 
-- currently trainging is working but the pearson coefficient is 0.01....<br>
- the predicted output seems to be random with mean of 0.1
 
 
 
